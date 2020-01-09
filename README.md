@@ -1,2 +1,3 @@
 # Cancer-smell
-<img src="Cancer-smell/Main_pipeline/Phylogeny.png">
+## Workflow
+<img src="Main_pipeline/Images/Workflow.png">
