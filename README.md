@@ -128,13 +128,13 @@ source_python("Main_pipeline/GSE75688/doublet.py")
 ```
 Doublet Analysis will output the result in "doublet_analysis.csv".
 This is the three column file that contains Cell_Id, Doublet_Score, and Doublet_Status
+
 | __Cell__ | __Doublet_Score__ | __Doublet__ |
 |-------------|------------|------------|
 | SRR2973279      | 0.02072538860103627 | False     |
 | SRR2973280       | 0.017369727047146403 | False     |
 | SRR2973281       | 0.017369727047146403 | False     |
 
-
-Doublet Status will be in the form of TRUE/FALSE, only FALSE cells are further used for analysis.
+Doublet Status will be in the form of **TRUE/FALSE**, only **FALSE** cells are further used for analysis.
 
 
