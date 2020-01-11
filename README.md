@@ -163,7 +163,7 @@ t_doublets_removed<-NULL
 The next step in the analysis is to identify the active and inactive genes based on their zFPKM values.
 
 ```r
-num_data<-read.csv("GSE75688/Doublets_removed.csv",row.names = 1)
+num_data<-read.csv("Main_pipeline/GSE75688/Doublets_removed.csv",row.names = 1)
 zfpkm<-zFPKM(num_data, assayName = "tpm")
 zfpkm<-as.data.frame(zfpkm)
 zfpkm$Median_Value <- apply(zfpkm, 1, FUN=median, na.rm=TRUE)
