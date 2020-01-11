@@ -179,3 +179,13 @@ list_of_filtered_genes<-as.data.frame(list_of_filtered_genes)
 colnames(list_of_filtered_genes)<-c("Gene_names")
 ```
 
+Since num_data contains all genes and only non doublet cells, we need to select only those genes which has median value >-3.
+```r
+num_data<-as.data.frame(num_data)
+num_data<-setDT(num_data, keep.rownames = "Gene_names")[]
+seurat_input<-merge(list_of_filtered_genes,num_data,by.x="Gene_names",by.y="Gene_names")
+write.table(seurat_input,file="Main_pipeline/GSE75688/seurat_input.csv",row.names=FALSE,
+            col.names = TRUE,sep=",",quote = FALSE)
+row.names(seurat_input)<-seurat_input$Gene_names
+seurat_input$Gene_names<-NULL
+```
