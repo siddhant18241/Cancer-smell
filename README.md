@@ -137,4 +137,45 @@ This is the three column file that contains Cell_Id, Doublet_Score, and Doublet_
 
 Doublet Status will be in the form of **TRUE/FALSE**, only **FALSE** cells are further used for analysis.
 
+```r
+doublet<-read.csv("Main_pipeline/GSE75688/doublet_analysis.csv")
+doublet<-subset(doublet, Doublet=="False" )
+doublet$Doublet_Score<-NULL
+doublet$Doublet<-NULL
+doublets_removed<-merge(doublet,t_exp,by.x="Cell",by.y="Cell_names")
+row.names(doublets_removed)<-doublets_removed[,1]
+doublets_removed$Cell<-NULL
+t_doublets_removed<-t(doublets_removed)
+t_doublets_removed<-as.data.frame(t_doublets_removed)
+t_doublets_removed<-setDT(t_doublets_removed, keep.rownames = "Gene_names")[]
+write.table(t_doublets_removed,file="Main_pipeline/GSE75688/Doublets_removed.csv",sep=",",row.names=FALSE,col.names = TRUE,quote=FALSE)
+```
+
+To save space the variables that don't have any role now are assigned a NULL value.
+
+```r
+exp<-NULL
+t_exp<-NULL
+doublet<-NULL
+doublets_removed<-NULL
+t_doublets_removed<-NULL
+```
+The next step in the analysis is to identify the active and inactive genes based on their zFPKM values.
+
+```r
+num_data<-read.csv("GSE75688/Doublets_removed.csv",row.names = 1)
+zfpkm<-zFPKM(num_data, assayName = "tpm")
+zfpkm<-as.data.frame(zfpkm)
+zfpkm$Median_Value <- apply(zfpkm, 1, FUN=median, na.rm=TRUE)
+```
+
+Active genes are only those genes that have Median of zFPKM value >-3
+
+```r
+filtered_genes<-subset(zfpkm, Median_Value>=-3 )
+filtered_genes$Median_Value<-NULL
+list_of_filtered_genes<-row.names(filtered_genes)
+list_of_filtered_genes<-as.data.frame(list_of_filtered_genes)
+colnames(list_of_filtered_genes)<-c("Gene_names")
+```
 
