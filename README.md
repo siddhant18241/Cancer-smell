@@ -224,4 +224,64 @@ VlnPlot(pb, features = c("nFeature_RNA", "nCount_RNA"), ncol = 2)
  plot2 <- FeatureScatter(pb, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
  plot(plot2)
  ```
-          
+
+Since we used raw matrix we need to perform normalization
+```r
+pb <- NormalizeData(pb)
+pb <- FindVariableFeatures(pb, selection.method = "vst", nfeatures = 2000)
+list_of_variable_features<-VariableFeatures(pb)
+list_of_variable_features<-as.data.frame(list_of_variable_features)
+write.table(list_of_variable_features,file="Main_pipeline/GSE75688/List_of_variable_features.csv",
+            sep=",",row.names=FALSE,quote = FALSE)
+```
+
+Further analysis: Scaling of data
+```r
+all.genes <- rownames(pb)
+pb <- ScaleData(pb, features = all.genes)
+```
+
+Dimension Reduction
+```r
+pb <- RunPCA(pb, features = VariableFeatures(object = pb))
+VizDimLoadings(pb, dims = 1:2, reduction = "pca")
+```
+*INsert Image here*
+
+```r
+DimPlot(pb, reduction = "pca")
+```
+*INsert Image here*
+
+Plotting HeatMap
+
+```r
+DimHeatmap(pb, dims = 1:15, cells = 500, balanced = TRUE)
+```
+
+*INsert Image here*
+
+```r
+pb <- JackStraw(pb, num.replicate = 100)
+pb <- ScoreJackStraw(pb, dims = 1:20)
+JackStrawPlot(pb, dims = 1:15)
+```
+
+*INsert Image here*
+
+```r
+ElbowPlot(pb)
+```
+
+*INsert Image here*
+
+Finding Neighbours and perforimg Cluster analysis
+
+```r
+pb <- FindNeighbors(pb, dims = 1:10)
+pb <- FindClusters(pb, resolution = 0.5)
+head(Idents(pb), 5)
+pb <- RunUMAP(pb, dims = 1:10)
+DimPlot(pb, reduction = "umap")
+```
+*INsert Image here*
