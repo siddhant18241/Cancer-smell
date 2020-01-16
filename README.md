@@ -285,3 +285,73 @@ pb <- RunUMAP(pb, dims = 1:10)
 DimPlot(pb, reduction = "umap")
 ```
 *INsert Image here*
+
+Finding Markers of all clusters
+```r
+pb.markers <- FindAllMarkers(pb, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
+write.table(pb.markers,file="Main_pipeline/GSE75688/Markers_info.csv",
+            sep=",",row.names=FALSE,col.names = TRUE,quote = FALSE)
+row_names<-row.names(seurat_input)
+row_names<-as.data.frame(row_names)
+seurat_input_copy<-seurat_input
+seurat_input_copy<-setDT(seurat_input_copy, keep.rownames = TRUE)[]
+write.table(seurat_input_copy,file="Main_pipeline/GSE75688/copy_of_seu_input.csv",
+            sep=",",quote=FALSE,row.names = FALSE,col.names = TRUE)
+```
+
+Plotting UMAPS for FUNCTIONAL ORs detected.
+```r
+factor0<-merge(row_names,f_or,by.x="row_names",by.y="Symbol")
+factor0<-as.matrix(factor0)
+a<-length(factor0)
+for (j in 1:a){
+  tryCatch(
+    {
+      
+      k<-FeaturePlot(pb, features = c(factor0[j,]),cols=my_col)
+      plot(k)
+      
+    },
+    error=function(cond) {
+      message(paste("."))
+      
+    },
+    warning=function(cond) {
+      message(paste("."))
+      
+    },
+    finally={
+      
+    }
+  )    
+}
+```
+For example purpose only 2 UMAPS are shown here
+
+*INseart image here for any 2 ORs
+
+```r
+check<-Idents(pb)
+check<-as.data.frame(check)
+#Converting row names as first column  
+check<-setDT(check, keep.rownames = TRUE)[]
+#Assigning column names to check
+colnames(check)<- c("Ids","Cluster")
+x<-merge(f_or,seurat_input_copy,by.x="Symbol",by.y="rn")
+first_col<-x[,1]
+first_col<-as.matrix(first_col)
+t_comb<-t(x)
+t_comb<-as.data.frame(t_comb)
+t_comb<-setDT(t_comb, keep.rownames = TRUE)[]
+names(t_comb) <- as.matrix(t_comb[1,])
+t_comb <- t_comb[-1,]
+Functional_Olfactory_info<-merge(check,t_comb,by.x="Ids",by.y="Symbol")
+write.table(Functional_Olfactory_info,"Main_pipeline/GSE75688/Functional_Olfactory_info.csv",
+            row.names=FALSE,sep=",",quote = FALSE)
+x<-NULL
+Functional_Olfactory_info<-as.data.frame(Functional_Olfactory_info)
+row.names(Functional_Olfactory_info)<-Functional_Olfactory_info$Ids
+Functional_Olfactory_info$Ids<-NULL
+Functional_Olfactory_info<-t(Functional_Olfactory_info)
+Functional_Olfactory_info<-as.data.frame(Functional_Olfactory_info)
+```
