@@ -189,3 +189,11 @@ write.table(seurat_input,file="Main_pipeline/GSE75688/seurat_input.csv",row.name
 row.names(seurat_input)<-seurat_input$Gene_names
 seurat_input$Gene_names<-NULL
 ```
+filtered_genes was also intersected with zfpkm
+```r
+zfpkm<-as.data.frame(zfpkm)
+zfpkm<-setDT(zfpkm, keep.rownames = "Gene_names")[]
+active_zfpkm_genes<-merge(list_of_filtered_genes,zfpkm,by.x="Gene_names",by.y="Gene_names")
+active_zfpkm_genes$Median_Value<-NULL
+write.table(active_zfpkm_genes,file="GSE75688/Active_genes_zfpkm_values.csv",row.names=FALSE,col.names = TRUE,sep=",",quote = FALSE)
+```
