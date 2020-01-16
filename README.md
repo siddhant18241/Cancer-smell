@@ -218,7 +218,7 @@ Generating several plots
 ```r
 VlnPlot(pb, features = c("nFeature_RNA", "nCount_RNA"), ncol = 2)
 ```
-<image here>
+*INsert image here*
   
  ```r
  plot2 <- FeatureScatter(pb, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
