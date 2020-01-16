@@ -195,5 +195,27 @@ zfpkm<-as.data.frame(zfpkm)
 zfpkm<-setDT(zfpkm, keep.rownames = "Gene_names")[]
 active_zfpkm_genes<-merge(list_of_filtered_genes,zfpkm,by.x="Gene_names",by.y="Gene_names")
 active_zfpkm_genes$Median_Value<-NULL
-write.table(active_zfpkm_genes,file="GSE75688/Active_genes_zfpkm_values.csv",row.names=FALSE,col.names = TRUE,sep=",",quote = FALSE)
+write.table(active_zfpkm_genes,file="Main_pipeline/GSE75688/Active_genes_zfpkm_values.csv",row.names=FALSE,col.names = TRUE,sep=",",quote = FALSE)
 ```
+
+Only seurat_input and active_zfpk_genes will be further used in the analysis.
+To reduce space again we removed the outdated variables.
+```r
+num_data<-NULL
+zfpkm<-NULL
+filtered_genes<-NULL
+list_of_filtered_genes<-NULL
+```
+
+**SEURAT_implementation**
+Creating seurat object
+```r
+pb <- CreateSeuratObject(counts = seurat_input, min.cells = 3, min.features = 200)
+pb
+```
+
+Generating several plots
+```r
+VlnPlot(pb, features = c("nFeature_RNA", "nCount_RNA"), ncol = 2)
+```
+
