@@ -207,7 +207,7 @@ filtered_genes<-NULL
 list_of_filtered_genes<-NULL
 ```
 
-**SEURAT_implementation**
+**SEURAT_implementation** <br>
 Creating seurat object
 ```r
 pb <- CreateSeuratObject(counts = seurat_input, min.cells = 3, min.features = 200)
@@ -218,4 +218,10 @@ Generating several plots
 ```r
 VlnPlot(pb, features = c("nFeature_RNA", "nCount_RNA"), ncol = 2)
 ```
-
+<image here>
+  
+ ```r
+ plot2 <- FeatureScatter(pb, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
+ plot(plot2)
+ ```
+          
