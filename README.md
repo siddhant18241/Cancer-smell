@@ -355,3 +355,336 @@ Functional_Olfactory_info$Ids<-NULL
 Functional_Olfactory_info<-t(Functional_Olfactory_info)
 Functional_Olfactory_info<-as.data.frame(Functional_Olfactory_info)
 ```
+
+Similar work was done for TAAR, VIR, V2R, TIR and Pseudo ORs
+
+```r
+#Plotting UMAPS for TAARs detected.
+factor0<-merge(row_names,taar,by.x="row_names",by.y="Symbol")
+factor0<-as.matrix(factor0)
+a<-length(factor0)
+pdf(file="Main_pipeline/GSE756881/UMAP_TAAR_plots.pdf")
+for (j in 1:a){
+  tryCatch(
+    {
+      
+      k<-FeaturePlot(pb, features = c(factor0[j,]),cols=my_col)
+      plot(k)
+      
+    },
+    error=function(cond) {
+      message(paste("."))
+      
+    },
+    warning=function(cond) {
+      message(paste("."))
+      
+    },
+    finally={
+      
+    }
+  )    
+}
+dev.off()
+
+check<-Idents(pb)
+check<-as.data.frame(check)
+#Converting row names as first column  
+check<-setDT(check, keep.rownames = TRUE)[]
+#Assigning column names to check
+colnames(check)<- c("Ids","Cluster")
+x<-merge(taar,seurat_input_copy,by.x="Symbol",by.y="rn")
+first_col<-x[,1]
+first_col<-as.matrix(first_col)
+t_comb<-t(x)
+t_comb<-as.data.frame(t_comb)
+t_comb<-setDT(t_comb, keep.rownames = TRUE)[]
+names(t_comb) <- as.matrix(t_comb[1,])
+t_comb <- t_comb[-1,]
+Functional_TAAR_info<-merge(check,t_comb,by.x="Ids",by.y="Symbol")
+write.table(Functional_TAAR_info,"Main_pipeline/GSE756881/Functional_TAAR_info.csv",row.names=FALSE,sep=",",quote = FALSE)
+x<-NULL
+Functional_TAAR_info<-as.data.frame(Functional_TAAR_info)
+row.names(Functional_TAAR_info)<-Functional_TAAR_info$Ids
+Functional_TAAR_info$Ids<-NULL
+Functional_TAAR_info<-t(Functional_TAAR_info)
+Functional_TAAR_info<-as.data.frame(Functional_TAAR_info)
+
+
+#___________________________________________________________________________________
+#Plotting UMAPS for V1Rs detected.
+factor0<-merge(row_names,v1r,by.x="row_names",by.y="Symbol")
+factor0<-as.matrix(factor0)
+a<-length(factor0)
+pdf(file="Main_pipeline/GSE756881/UMAP_V1R_plots.pdf")
+for (j in 1:a){
+  tryCatch(
+    {
+      
+      k<-FeaturePlot(pb, features = c(factor0[j,]),cols=my_col)
+      plot(k)
+      
+    },
+    error=function(cond) {
+      message(paste("."))
+      
+    },
+    warning=function(cond) {
+      message(paste("."))
+      
+    },
+    finally={
+      
+    }
+  )    
+}
+dev.off()
+
+check<-Idents(pb)
+check<-as.data.frame(check)
+#Converting row names as first column  
+check<-setDT(check, keep.rownames = TRUE)[]
+#Assigning column names to check
+colnames(check)<- c("Ids","Cluster")
+x<-merge(v1r,seurat_input_copy,by.x="Symbol",by.y="rn")
+first_col<-x[,1]
+first_col<-as.matrix(first_col)
+t_comb<-t(x)
+t_comb<-as.data.frame(t_comb)
+t_comb<-setDT(t_comb, keep.rownames = TRUE)[]
+names(t_comb) <- as.matrix(t_comb[1,])
+t_comb <- t_comb[-1,]
+Functional_V1R_info<-merge(check,t_comb,by.x="Ids",by.y="Symbol")
+write.table(Functional_V1R_info,"Main_pipeline/GSE756881/Functional_V1R_info.csv",row.names=FALSE,sep=",",quote = FALSE)
+x<-NULL
+Functional_V1R_info<-as.data.frame(Functional_V1R_info)
+row.names(Functional_V1R_info)<-Functional_V1R_info$Ids
+Functional_V1R_info$Ids<-NULL
+Functional_V1R_info<-t(Functional_V1R_info)
+Functional_V1R_info<-as.data.frame(Functional_V1R_info)
+
+#___________________________________________________________________________________
+#Plotting UMAPS for T2Rs detected.
+factor0<-merge(row_names,t2r,by.x="row_names",by.y="Symbol")
+factor0<-as.matrix(factor0)
+a<-length(factor0)
+pdf(file="Main_pipeline/GSE756881/UMAP_T2R_plots.pdf")
+for (j in 1:a){
+  tryCatch(
+    {
+      
+      k<-FeaturePlot(pb, features = c(factor0[j,]),cols=my_col)
+      plot(k)
+      
+    },
+    error=function(cond) {
+      message(paste("."))
+      
+    },
+    warning=function(cond) {
+      message(paste("."))
+      
+    },
+    finally={
+      
+    }
+  )    
+}
+dev.off()
+
+check<-Idents(pb)
+check<-as.data.frame(check)
+#Converting row names as first column  
+check<-setDT(check, keep.rownames = TRUE)[]
+#Assigning column names to check
+colnames(check)<- c("Ids","Cluster")
+x<-merge(t2r,seurat_input_copy,by.x="Symbol",by.y="rn")
+first_col<-x[,1]
+first_col<-as.matrix(first_col)
+t_comb<-t(x)
+t_comb<-as.data.frame(t_comb)
+t_comb<-setDT(t_comb, keep.rownames = TRUE)[]
+names(t_comb) <- as.matrix(t_comb[1,])
+t_comb <- t_comb[-1,]
+Functional_T2R_info<-merge(check,t_comb,by.x="Ids",by.y="Symbol")
+write.table(Functional_T2R_info,"Main_pipeline/GSE756881/Functional_T2R_info.csv",row.names=FALSE,sep=",",quote = FALSE)
+x<-NULL
+Functional_T2R_info<-as.data.frame(Functional_T2R_info)
+row.names(Functional_T2R_info)<-Functional_T2R_info$Ids
+Functional_T2R_info$Ids<-NULL
+Functional_T2R_info<-t(Functional_T2R_info)
+Functional_T2R_info<-as.data.frame(Functional_T2R_info)
+
+#___________________________________________________________________________________
+#Plotting UMAPS for T1Rs detected.
+factor0<-merge(row_names,t1r,by.x="row_names",by.y="Symbol")
+factor0<-as.matrix(factor0)
+a<-length(factor0)
+pdf(file="Main_pipeline/GSE756881/UMAP_T1R_plots.pdf")
+for (j in 1:a){
+  tryCatch(
+    {
+      
+      k<-FeaturePlot(pb, features = c(factor0[j,]),cols=my_col)
+      plot(k)
+      
+    },
+    error=function(cond) {
+      message(paste("."))
+      
+    },
+    warning=function(cond) {
+      message(paste("."))
+      
+    },
+    finally={
+      
+    }
+  )    
+}
+dev.off()
+
+check<-Idents(pb)
+check<-as.data.frame(check)
+#Converting row names as first column  
+check<-setDT(check, keep.rownames = TRUE)[]
+#Assigning column names to check
+colnames(check)<- c("Ids","Cluster")
+x<-merge(t1r,seurat_input_copy,by.x="Symbol",by.y="rn")
+first_col<-x[,1]
+first_col<-as.matrix(first_col)
+t_comb<-t(x)
+t_comb<-as.data.frame(t_comb)
+t_comb<-setDT(t_comb, keep.rownames = TRUE)[]
+names(t_comb) <- as.matrix(t_comb[1,])
+t_comb <- t_comb[-1,]
+Functional_T1R_info<-merge(check,t_comb,by.x="Ids",by.y="Symbol")
+write.table(Functional_T1R_info,"Main_pipeline/GSE756881/Functional_T1R_info.csv",row.names=FALSE,sep=",",quote = FALSE)
+x<-NULL
+Functional_T1R_info<-as.data.frame(Functional_T1R_info)
+row.names(Functional_T1R_info)<-Functional_T1R_info$Ids
+Functional_T1R_info$Ids<-NULL
+Functional_T1R_info<-t(Functional_T1R_info)
+Functional_T1R_info<-as.data.frame(Functional_T1R_info)
+
+#___________________________________________________________________________________
+#Plotting UMAPS for Pseudo ORs detected.
+factor0<-merge(row_names,p_or,by.x="row_names",by.y="Symbol")
+factor0<-as.matrix(factor0)
+a<-length(factor0)
+pdf(file="Main_pipeline/GSE756881/UMAP_Pseudo_Olfactory_plots.pdf")
+for (j in 1:a){
+  tryCatch(
+    {
+      
+      k<-FeaturePlot(pb, features = c(factor0[j,]),cols=my_col)
+      plot(k)
+      
+    },
+    error=function(cond) {
+      message(paste("."))
+      
+    },
+    warning=function(cond) {
+      message(paste("."))
+      
+    },
+    finally={
+      
+    }
+  )    
+}
+dev.off()
+
+check<-Idents(pb)
+check<-as.data.frame(check)
+#Converting row names as first column  
+check<-setDT(check, keep.rownames = TRUE)[]
+#Assigning column names to check
+colnames(check)<- c("Ids","Cluster")
+x<-merge(p_or,seurat_input_copy,by.x="Symbol",by.y="rn")
+first_col<-x[,1]
+first_col<-as.matrix(first_col)
+t_comb<-t(x)
+t_comb<-as.data.frame(t_comb)
+t_comb<-setDT(t_comb, keep.rownames = TRUE)[]
+names(t_comb) <- as.matrix(t_comb[1,])
+t_comb <- t_comb[-1,]
+Functional_Pseudo_olfactory_info<-merge(check,t_comb,by.x="Ids",by.y="Symbol")
+write.table(Functional_Pseudo_olfactory_info,"Main_pipeline/GSE756881/Functional_Pseudo_olfactory_info.csv",row.names=FALSE,sep=",",quote = FALSE)
+x<-NULL
+Functional_Pseudo_olfactory_info<-as.data.frame(Functional_Pseudo_olfactory_info)
+row.names(Functional_Pseudo_olfactory_info)<-Functional_Pseudo_olfactory_info$Ids
+Functional_Pseudo_olfactory_info$Ids<-NULL
+Functional_Pseudo_olfactory_info<-t(Functional_Pseudo_olfactory_info)
+Functional_Pseudo_olfactory_info<-as.data.frame(Functional_Pseudo_olfactory_info)
+```
+
+Combining all the data frames together, to obatin a final complete Dataframe.
+```r
+final<-do.call("rbind", list(Functional_Olfactory_info,Functional_Pseudo_olfactory_info,Functional_T1R_info,Functional_T2R_info,Functional_TAAR_info,Functional_V1R_info))
+remove<-list("Cluster1", "Cluster2", "Cluster3", "Cluster4", "Cluster5")
+final = final[ !(rownames(final) %in% remove), ]
+selected_receptors<-row.names(final)
+selected_receptors<-as.data.frame(selected_receptors)
+selected_receptors<-selected_receptors[-1,]
+selected_receptors<-as.data.frame(selected_receptors)
+final<-t(final)
+final<-as.data.frame(final)
+final<-setDT(final, keep.rownames = "Cell_Ids")[]
+write.table(final,file="Main_pipeline/GSE756881/Final_Receptor_file.csv",sep=",",row.name=FALSE,col.names = TRUE,quote=FALSE)
+```
+
+Another task is to classify the cell as Negative or Positive based on the expression of ORs.
+```r
+selected_rep_zfpkm_values<-merge(selected_receptors,active_zfpkm_genes,by.x="selected_receptors",by.y="Gene_names")
+row.names(selected_rep_zfpkm_values)<-selected_rep_zfpkm_values$selected_receptors
+selected_rep_zfpkm_values$selected_receptors<-NULL
+selected_rep_zfpkm_values<-t(selected_rep_zfpkm_values)
+selected_rep_zfpkm_values<-as.data.frame(selected_rep_zfpkm_values)
+selected_rep_zfpkm_values$count_value<-apply(selected_rep_zfpkm_values,1,function(x) sum(x>=-3))
+selected_rep_zfpkm_values$Cell_status<-ifelse(selected_rep_zfpkm_values$count_value>0,"Positive","Negative")
+selected_rep_zfpkm_values<-setDT(selected_rep_zfpkm_values, keep.rownames = "Cell_Ids")[]
+write.table(selected_rep_zfpkm_values,file="Main_pipeline/GSE756881/Cell_staus_zfpkm.csv",sep=",",row.names=FALSE,col.names = TRUE,quote=FALSE)
+```
+
+Gene Set Variation Analysis
+```r
+input<-read.csv("Main_pipeline/GSE756881/copy_of_seu_input.csv")
+mer<-merge(selected_receptors,input,by.x="selected_receptors",by.y="rn")
+row.names(mer) <- mer$selected_receptors
+mer[1] <- NULL
+row.names(input) <- input$rn
+input[1] <- NULL
+input<-as.matrix(input)
+
+#Input GMT file
+genelist_mic <- getGmt("GMT_file/GMT_file_for_GSVA.gmt")
+gbm_es <- gsva(input, genelist_mic)
+gbm_es<-as.data.frame(gbm_es)
+df=data.frame(matrix(ncol=4,nrow=0))
+colnames(df)<-c("Genename","Signature","Pvalue","Corelation")
+for (i in 1:nrow(mer)){
+  p<-as.matrix(mer[i,])
+  for (j in 1:nrow(gbm_es)){
+    q<-as.matrix(gbm_es[j,])
+    result<-cor.test(p,q)
+    com<-c(row.names(p),row.names(q),result[["p.value"]],result[["estimate"]][["cor"]])
+    df[nrow(df)+1,]=com
+  }
+}
+df<-filter(df, Pvalue <= 0.01)
+write.table(df,file="Main_pipeline/GSE756881/GSVA_signatures.csv", sep=",", row.names = FALSE, col.names = TRUE, quote = FALSE)
+df
+gbm_es_2<-gbm_es
+gbm_es_2<-setDT(gbm_es_2,keep.rownames = "Signature")[]
+write.table(gbm_es_2,file="Main_pipeline/GSE756881/GSVA_scores.csv",sep=",",row.names=FALSE,col.names=TRUE,quote=FALSE)
+```
+The GSVA results will be similar to the table shown below
+| __Gene Name__ | __Signature__ | __P-Value__ | __Corelation__ |
+|-------------|------------|------------|------------|
+| OR6C75     | Differentiation | 0.0001542391263     | 0.21    |
+| OR8H1       | Angiogenesis | 0.0003532790554     | 0.20    |
+| OR8H1      | Invasion | 0.0001711976409    | -0.21    |
+| OR7G2      | DNA_repair | 0.0001577398186     | -0.21    |
+| OR1A1      | Inflammation | 0.009691620452     | -0.33    |
