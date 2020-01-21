@@ -681,6 +681,7 @@ gbm_es_2<-setDT(gbm_es_2,keep.rownames = "Signature")[]
 write.table(gbm_es_2,file="Main_pipeline/GSE756881/GSVA_scores.csv",sep=",",row.names=FALSE,col.names=TRUE,quote=FALSE)
 ```
 The GSVA results will be similar to the table shown below
+
 | __Gene Name__ | __Signature__ | __P-Value__ | __Corelation__ |
 |-------------|------------|------------|------------|
 | OR6C75     | Differentiation | 0.0001542391263     | 0.21    |
