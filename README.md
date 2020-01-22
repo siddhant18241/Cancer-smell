@@ -667,3 +667,19 @@ The GSVA results will be similar to the table shown below
 | OR8H1      | Invasion | 0.0001711976409    | -0.21    |
 | OR7G2      | DNA_repair | 0.0001577398186     | -0.21    |
 | OR1A1      | Inflammation | 0.009691620452     | -0.33    |
+
+**Figures**
+```r
+library(circlize)
+a2<-read.csv("Figures/chord_diagram_tumor.csv")
+a2<-as.data.frame(a2)
+#a2<-as.factor(a2)
+chordDiagram(a2,transparency = 0.7, annotationTrack = "grid",preAllocateTracks = list(track.height = 0.5))
+circos.trackPlotRegion(track.index = 1, panel.fun = function(x, y) {
+  xlim = get.cell.meta.data("xlim")
+  ylim = get.cell.meta.data("ylim")
+  sector.name = get.cell.meta.data("sector.index")
+  circos.text(mean(xlim), ylim[1],cex=0.3,sector.name, facing = "clockwise",
+              niceFacing = TRUE, adj = c(0, 0.6))
+}, bg.border = NA)
+```
