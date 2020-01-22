@@ -217,10 +217,6 @@ pb
 Generating several plots
 ```r
 VlnPlot(pb, features = c("nFeature_RNA", "nCount_RNA"), ncol = 2)
-```
-*INsert image here*
-  
- ```r
  plot2 <- FeatureScatter(pb, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
  plot(plot2)
  ```
@@ -245,35 +241,17 @@ Dimension Reduction
 ```r
 pb <- RunPCA(pb, features = VariableFeatures(object = pb))
 VizDimLoadings(pb, dims = 1:2, reduction = "pca")
-```
-*INsert Image here*
-
-```r
 DimPlot(pb, reduction = "pca")
 ```
-*INsert Image here*
-
 Plotting HeatMap
 
 ```r
 DimHeatmap(pb, dims = 1:15, cells = 500, balanced = TRUE)
-```
-
-*INsert Image here*
-
-```r
 pb <- JackStraw(pb, num.replicate = 100)
 pb <- ScoreJackStraw(pb, dims = 1:20)
 JackStrawPlot(pb, dims = 1:15)
-```
-
-*INsert Image here*
-
-```r
 ElbowPlot(pb)
 ```
-
-*INsert Image here*
 
 Finding Neighbours and perforimg Cluster analysis
 
@@ -284,7 +262,7 @@ head(Idents(pb), 5)
 pb <- RunUMAP(pb, dims = 1:10)
 DimPlot(pb, reduction = "umap")
 ```
-*INsert Image here*
+<img src="Main_pipeline/Images/umap.png">
 
 Finding Markers of all clusters
 ```r
@@ -326,9 +304,9 @@ for (j in 1:a){
   )    
 }
 ```
-For example purpose only 2 UMAPS are shown here
+For example purpose only 1 UMAP are shown here
 
-*INseart image here for any 2 ORs
+<img src="Main_pipeline/Images/OR1A1.png">
 
 ```r
 check<-Idents(pb)
