@@ -23,7 +23,7 @@ library(GSVAdata) #To compute Gene Set Variation Analysis
 library(msigdb) #To load gmt file
 ```
 
-Once all the libraries are properly loaded, we need to provide input files. This pipeline takes into account 6 sub famlies of GPCRs. The format of all these 6 Input Files is, a sinlge column csv file that contains **gene names** as entries and column heading as **"Symbol"**  <br/>
+Once all the libraries are properly loaded, we need to provide input files. This pipeline takes into account 6 sub famlies of GPCRs. The format of all these 6 Input Files is a sinlge column csv file that contains **gene names** as entries and column heading as **"Symbol"**  <br/>
 
 **Input Receptor files** <br/>
 ```r
@@ -304,7 +304,7 @@ for (j in 1:a){
   )    
 }
 ```
-For example purpose only 1 UMAP are shown here
+For example, one of the UMAP is shown below.
 
 <img src="Main_pipeline/Images/OR1A1.png">
 
